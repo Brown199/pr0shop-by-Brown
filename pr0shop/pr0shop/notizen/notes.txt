@@ -1,0 +1,61 @@
+﻿working:
+        pPb(0).Image = Image.FromFile("C:\Users\##\Downloads\20150419093143.jpg")
+        pPb(0).Visible = True
+        pPb(0).Top = 20
+        pPb(0).Width = 100
+        pPb(0).Height = 200
+        pPb(0).Left = 10
+        pPb(0).SizeMode = PictureBoxSizeMode.StretchImage
+
+        AddHandler pPb(0).DoubleClick, AddressOf PictureBox_Handler_DoubleClick
+        AddHandler pPb(0).MouseDown, AddressOf PictureBox_Handler_MouseDown
+        AddHandler pPb(0).MouseUp, AddressOf PictureBox_Handler_MouseUp
+        AddHandler pPb(0).MouseMove, AddressOf PictureBox_Handler_MouseMove
+
+        frm_main.Controls.Add(pPb(0))
+
+handlers:
+    Private Sub PictureBox_Handler_DoubleClick(ByVal sender As Object, ByVal e As EventArgs)
+        frm_main.ofd_pbmain.Title = "Wähle ein Bild aus"
+        If frm_main.ofd_pbmain.ShowDialog(Me) = DialogResult.OK Then
+            Dim img As String = frm_main.ofd_pbmain.FileName
+            pPb(0).Image = System.Drawing.Bitmap.FromFile(img)
+        End If
+    End Sub
+
+    Private Sub PictureBox_Handler_MouseDown(ByVal sender As Object, ByVal e As EventArgs)
+        frm_main.downElement()
+    End Sub
+    Private Sub PictureBox_Handler_MouseUp(ByVal sender As Object, ByVal e As EventArgs)
+        frm_main.upElement()
+    End Sub
+    Private Sub PictureBox_Handler_MouseMove(ByVal sender As Object, ByVal e As EventArgs)
+        frm_main.moveElement(sender)
+    End Sub
+
+frm_settings:
+	'	 Private Sub cmd_groessen_Click(sender As System.Object, e As System.EventArgs)
+    '    frm_main.pb_main.Size = New System.Drawing.Size(txt_xSize.Text, txt_ySize.Text)
+    '    frm_main.Size = New System.Drawing.Size(txt_windowScaleX.Text, txt_windowScaleY.Text)
+
+    '    If rb_autoSize.Checked Then
+    '        frm_main.pb_main.SizeMode = PictureBoxSizeMode.AutoSize
+    '    ElseIf rb_stretch.Checked Then
+    '        frm_main.pb_main.SizeMode = PictureBoxSizeMode.StretchImage
+    '    End If
+    'End Sub
+
+    'Public Function Screenshot(ByVal Ctrl As Control) As Bitmap
+    '    ' Erstellt einen Screenshot des übergebenen Controls / der übergebenen Form.
+    '    ' Erfordert Microsoft .NET >= 2.0 (Control.DrawToBitmap)
+    '    ' Der Aufrufer ist für eine Entsorgung der returnierten Bitmap zuständig.
+    '    Dim w As Integer = Ctrl.Width  ' Breite des Controls / der Form
+    '    Dim h As Integer = Ctrl.Height ' Höhe des Controls / der Form
+    '    ' Bitmap für das Abbild des Controls / der Form bereitstellen
+    '    Screenshot = New Bitmap(w, h)
+    '    ' Screenshot vornehmen und zurückgeben
+    '    Ctrl.DrawToBitmap(Screenshot, Rectangle.FromLTRB(0, 0, w, h))
+    '    frm_main.pb_main.Image = Screenshot
+    '    Return Screenshot
+    'End Function
+
