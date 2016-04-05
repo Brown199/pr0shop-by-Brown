@@ -1,30 +1,50 @@
 ﻿Public Class frm_settings
-    Dim iMaximumImages As Integer = 2
-    Dim iImageCount As Integer
-    Dim iPbZaehler As Integer = 0
-    Dim pPb(10) As PictureBox
 
-    Dim allowedChars As String = "0123456789" & vbBack
-    Dim hexBackground As String = "#161618"
-    Dim hexFont As String = "#ee4d2d"
+#Region "Eigene Events"
+    Public Event colorSelected(ByVal chosenColor As Color)
+
+    'Events die vom textEditor durchgereicht werden
+    Public Event fontPlus()
+    Public Event fontMinus()
+    Public Event contentChanged(ByVal heading As String, ByVal content As String)
+#End Region
+
+#Region "lokale Variablen"
+
+    Private iMaximumImages As Integer = 2
+    Private iImageCount As Integer = 1
+    Private iPbZaehler As Integer = 0
+    Private pPb(10) As PictureBox
+
+    Private allowedChars As String = "0123456789" & vbBack
+
     'Dim hexFont As String = "#1db992"
     'Dim bAutosize As Boolean = False
-    Private Sub frm_settings_DragOver(sender As Object, e As System.Windows.Forms.DragEventArgs) Handles Me.DragOver
-        frm_main.cmd_settings.ForeColor = ColorTranslator.FromHtml("#ee4d2d")
-    End Sub
 
-    Private Sub frm_settings_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Public WithEvents frm_textEditor As New frm_textEditor()
+
+#End Region
+
+    Private Sub frm_settings_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         frm_textEditor.lbl_body1FontSize.Text = frm_main.lbl_body1.Font.Size
+
         'Me.Cursor = New Cursor(My.Resources.cursor.Handle)
-        iImageCount = 1
+
         lbl_aktuellDisplay.Text = iPbZaehler
         lbl_version.Text = "v" + Application.ProductVersion
+
         For i As Integer = 0 To 10
             pPb(i) = New PictureBox
         Next
     End Sub
 
-    Private Sub cmd_screenshot_Click(sender As System.Object, e As System.EventArgs) Handles cmd_screenshot.Click
+    Private Sub frm_settings_DragOver(sender As Object, e As System.Windows.Forms.DragEventArgs) Handles Me.DragOver
+        frm_main.cmd_settings.ForeColor = ColorTranslator.FromHtml("#ee4d2d")
+    End Sub
+
+
+    Private Sub Save(sender As Object, e As EventArgs) Handles cmd_screenshot.Click
         Try
             frm_main.cmd_quit.Hide()
             frm_main.cmd_settings.Hide()
@@ -57,6 +77,7 @@
             MsgBox("Egal was Du getan hast: Es war falsch ¯\_(ツ)_/¯", MsgBoxStyle.Critical, "Fehler")
         End Try
     End Sub
+
 
     Private Sub tmr_refresh_Tick(sender As System.Object, e As System.EventArgs) Handles tmr_refresh.Tick
         lbl_aktuellDisplay.Text = iPbZaehler
@@ -127,7 +148,8 @@
         txt_ySize.Text = 300
     End Sub
 
-    Private Sub cmd_imagePlus_Click(sender As System.Object, e As System.EventArgs) Handles cmd_imagePlus.Click
+
+    Private Sub addImage(sender As System.Object, e As System.EventArgs) Handles cmd_imagePlus.Click
         If iPbZaehler < 10 Then
             Dim nummer As Integer
             For nummer = iPbZaehler To iPbZaehler
@@ -155,7 +177,7 @@
         End If
     End Sub
 
-    Private Sub cmd_imageMinus_Click(sender As System.Object, e As System.EventArgs) Handles cmd_imageMinus.Click
+    Private Sub removeImage(sender As System.Object, e As System.EventArgs) Handles cmd_imageMinus.Click
         If iPbZaehler > 0 Then
             iPbZaehler -= 1
             lbl_aktuellDisplay.Text = iPbZaehler
@@ -172,6 +194,8 @@
         End If
     End Sub
 
+
+#Region "Eventhandler für die Pictureboxen"
     Private Sub PictureBox_Handler_SizeChanged(ByVal sender As Object, ByVal e As EventArgs)
         Dim pb As PictureBox
         pb = CType(sender, PictureBox)
@@ -224,7 +248,9 @@
         '    pb.Location = New Point(0, 0)
         'End If
     End Sub
+#End Region
 
+#Region "Funktionen für die Fenstergröße"
     Private Sub txt_windowScaleX_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txt_windowScaleX.KeyPress
         Dim tText As TextBox
         tText = CType(sender, TextBox)
@@ -247,7 +273,9 @@
             e.Handled = True
         End If
     End Sub
+#End Region
 
+#Region "Funktionen für die Bildgröße"
     Private Sub txt_xSize_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txt_xSize.KeyPress
         Dim tText As TextBox
         tText = CType(sender, TextBox)
@@ -269,9 +297,36 @@
             e.Handled = True
         End If
     End Sub
+#End Region
 
     Private Sub cmd_edit_Click(sender As System.Object, e As System.EventArgs) Handles cmd_edit.Click
         frm_textEditor.Show()
     End Sub
+
+#Region "Farbwechsel"
+    Private Sub rb_colorGreen_CheckedChanged(sender As Object, e As EventArgs) Handles rb_colorGreen.CheckedChanged
+        If rb_colorGreen.Checked Then
+            RaiseEvent colorSelected(ColorTranslator.FromHtml("#1db992"))
+        Else
+            RaiseEvent colorSelected(ColorTranslator.FromHtml("#ee4d2d"))
+        End If
+    End Sub
+
+#End Region
+
+#Region "Events des Text-Editor"
+
+    Private Sub contentChangedHandler(ByVal heading As String, ByVal content As String) Handles frm_textEditor.contentChanged
+        RaiseEvent contentChanged(heading, content)
+    End Sub
+    Private Sub fontPlusHandler() Handles frm_textEditor.fontPlus
+        RaiseEvent fontPlus()
+    End Sub
+    Private Sub fontMinusHandler() Handles frm_textEditor.fontMinus
+        RaiseEvent fontMinus()
+    End Sub
+
+#End Region
+
 End Class
 

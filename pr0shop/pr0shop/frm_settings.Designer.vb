@@ -134,9 +134,6 @@ Partial Class frm_settings
         Me.tmr_refresh.Enabled = True
         Me.tmr_refresh.Interval = 500
         '
-        'tt_main
-        '
-        '
         'lbl_version
         '
         Me.lbl_version.AutoSize = True

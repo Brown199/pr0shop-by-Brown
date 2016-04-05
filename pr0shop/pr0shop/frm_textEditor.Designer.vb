@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frm_textEditor
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,9 +20,8 @@ Partial Class frm_textEditor
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_textEditor))
         Me.gb_texte = New System.Windows.Forms.GroupBox()
         Me.lbl_header = New System.Windows.Forms.Label()
@@ -32,7 +31,6 @@ Partial Class frm_textEditor
         Me.cmd_fontMinus = New System.Windows.Forms.Button()
         Me.lbl_body1 = New System.Windows.Forms.Label()
         Me.cmd_fontPlus = New System.Windows.Forms.Button()
-        Me.tmr_refreshText = New System.Windows.Forms.Timer(Me.components)
         Me.gb_texte.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -127,10 +125,6 @@ Partial Class frm_textEditor
         Me.cmd_fontPlus.Text = "+"
         Me.cmd_fontPlus.UseVisualStyleBackColor = True
         '
-        'tmr_refreshText
-        '
-        Me.tmr_refreshText.Enabled = True
-        '
         'frm_textEditor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -153,5 +147,4 @@ Partial Class frm_textEditor
     Friend WithEvents cmd_fontMinus As System.Windows.Forms.Button
     Friend WithEvents lbl_body1 As System.Windows.Forms.Label
     Friend WithEvents cmd_fontPlus As System.Windows.Forms.Button
-    Friend WithEvents tmr_refreshText As System.Windows.Forms.Timer
 End Class

@@ -29,7 +29,6 @@ Partial Class frm_main
         Me.cmd_quit = New System.Windows.Forms.Button()
         Me.cmd_settings = New System.Windows.Forms.Button()
         Me.ofd_pbmain = New System.Windows.Forms.OpenFileDialog()
-        Me.tt_imageRes = New System.Windows.Forms.ToolTip(Me.components)
         Me.cmd_minimize = New System.Windows.Forms.Button()
         Me.lbl_brown = New System.Windows.Forms.Label()
         Me.pb_main = New System.Windows.Forms.PictureBox()
@@ -184,7 +183,6 @@ Partial Class frm_main
     Friend WithEvents cmd_quit As System.Windows.Forms.Button
     Friend WithEvents cmd_settings As System.Windows.Forms.Button
     Friend WithEvents ofd_pbmain As System.Windows.Forms.OpenFileDialog
-    Friend WithEvents tt_imageRes As System.Windows.Forms.ToolTip
     Friend WithEvents cmd_minimize As System.Windows.Forms.Button
     Friend WithEvents lbl_brown As System.Windows.Forms.Label
     Friend WithEvents pb_main As System.Windows.Forms.PictureBox
